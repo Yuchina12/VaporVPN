@@ -1,4 +1,6 @@
 using System.Drawing;
+using System.Linq;
+using System.Net.NetworkInformation;
 
 namespace VaporVPNApp;
 
@@ -6,6 +8,7 @@ public partial class Form1 : Form
 {
     private readonly Label _statusLabel;
     private readonly ComboBox _providerBox;
+    private readonly ComboBox _ispBox;
     private readonly ComboBox _locationBox;
     private readonly Button _connectButton;
     private readonly Button _disconnectButton;
@@ -92,8 +95,39 @@ public partial class Form1 : Form
             Height = 32,
             Location = new Point(24, 108)
         };
-        _providerBox.Items.AddRange(new object[] { "VaporVPN Ethernet Adapter #IDNUMBER", "VaporVPN Ethernet Adapter #IDNUMBER-2", "VaporVPN Ethernet Adapter #IDNUMBER-3" });
-        _providerBox.SelectedIndex = 0;
+
+        // Enumerate network interfaces and label them as VaporVPN Ethernet Provider #N
+        var nics = NetworkInterface.GetAllNetworkInterfaces()
+            .Where(n => n.NetworkInterfaceType != NetworkInterfaceType.Loopback)
+            .ToArray();
+        if (nics.Length == 0)
+        {
+            _providerBox.Items.Add("VaporVPN Ethernet Provider #1 - Unknown");
+            _providerBox.SelectedIndex = 0;
+        }
+        else
+        {
+            for (int i = 0; i < nics.Length; i++)
+            {
+                var nic = nics[i];
+                var label = $"VaporVPN Ethernet Provider #{i + 1} - {nic.Name}";
+                _providerBox.Items.Add(label);
+            }
+            var upIndex = Array.FindIndex(nics, ni => ni.OperationalStatus == OperationalStatus.Up);
+            _providerBox.SelectedIndex = upIndex >= 0 ? upIndex : 0;
+        }
+
+        // ISP/provider selector (Bell / Rogers / Telus / Other)
+        _ispBox = new ComboBox
+        {
+            DropDownStyle = ComboBoxStyle.DropDownList,
+            Font = new Font("Segoe UI", 11),
+            Width = 240,
+            Height = 32,
+            Location = new Point(24, 174)
+        };
+        _ispBox.Items.AddRange(new object[] { "Bell / Rogers", "Telus", "Shaw", "Other" });
+        _ispBox.SelectedIndex = 0;
 
         var locationLabel = new Label
         {
@@ -156,7 +190,7 @@ public partial class Form1 : Form
 
         var infoLabel = new Label
         {
-            Text = "Status: Ready\nNetwork Adapter: VaporVPN Ethernet Adapter #IDNUMBER\nLocation: Calgary\nProtocol: Ethernet Tunnel",
+            Text = "Status: Ready\nNetwork Adapter: (not selected)\nProvider: Bell / Rogers\nLocation: Calgary\nProtocol: Ethernet Tunnel",
             AutoSize = true,
             Font = new Font("Segoe UI", 11),
             ForeColor = Color.FromArgb(225, 238, 255),
@@ -168,6 +202,7 @@ public partial class Form1 : Form
         bodyPanel.Controls.Add(introLabel);
         bodyPanel.Controls.Add(providerLabel);
         bodyPanel.Controls.Add(_providerBox);
+        bodyPanel.Controls.Add(_ispBox);
         bodyPanel.Controls.Add(locationLabel);
         bodyPanel.Controls.Add(_locationBox);
         bodyPanel.Controls.Add(_statusLabel);
@@ -181,9 +216,10 @@ public partial class Form1 : Form
 
     private void HandleConnect(object? sender, EventArgs e)
     {
-        var provider = _providerBox.SelectedItem?.ToString() ?? "VaporVPN Ethernet Adapter #IDNUMBER";
+        var adapter = _providerBox.SelectedItem?.ToString() ?? "VaporVPN Ethernet Adapter #IDNUMBER";
+        var isp = _ispBox.SelectedItem?.ToString() ?? "Bell / Rogers";
         var location = _locationBox.SelectedItem?.ToString() ?? "Calgary";
-        _statusLabel.Text = $"Connected to {location} on {provider}";
+        _statusLabel.Text = $"Connected to {location} on {adapter} using {isp}";
         _statusLabel.ForeColor = Color.FromArgb(102, 255, 153);
     }
 

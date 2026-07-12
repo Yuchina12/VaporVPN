@@ -1,0 +1,5 @@
+publish/
+VaporVPNApp/bin/
+VaporVPNApp/obj/
+.vs/
+*.user

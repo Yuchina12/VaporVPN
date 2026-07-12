@@ -1,4 +1,5 @@
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
 
@@ -12,6 +13,14 @@ public partial class Form1 : Form
     private readonly ComboBox _locationBox;
     private readonly Button _connectButton;
     private readonly Button _disconnectButton;
+    private readonly TextBox _connectionNameBox;
+    private readonly TextBox _serverBox;
+    private readonly ComboBox _vpnTypeBox;
+    private readonly ComboBox _signInBox;
+    private readonly TextBox _usernameBox;
+    private readonly TextBox _passwordBox;
+    private readonly PictureBox _logoBox;
+    private readonly Label _infoLabel;
 
     public Form1()
     {
@@ -91,7 +100,7 @@ public partial class Form1 : Form
         {
             DropDownStyle = ComboBoxStyle.DropDownList,
             Font = new Font("Segoe UI", 11),
-            Width = 240,
+            Width = 360,
             Height = 32,
             Location = new Point(24, 108)
         };
@@ -128,6 +137,107 @@ public partial class Form1 : Form
         };
         _ispBox.Items.AddRange(new object[] { "Bell / Rogers", "Telus", "Shaw", "Other" });
         _ispBox.SelectedIndex = 0;
+
+        // Connection details inputs
+        var connNameLabel = new Label
+        {
+            Text = "Connection name",
+            AutoSize = true,
+            Font = new Font("Segoe UI", 10),
+            ForeColor = Color.White,
+            Location = new Point(420, 84)
+        };
+        _connectionNameBox = new TextBox
+        {
+            Font = new Font("Segoe UI", 10),
+            Width = 300,
+            Location = new Point(420, 108)
+        };
+
+        var serverLabel = new Label
+        {
+            Text = "Server name or address",
+            AutoSize = true,
+            Font = new Font("Segoe UI", 10),
+            ForeColor = Color.White,
+            Location = new Point(420, 144)
+        };
+        _serverBox = new TextBox
+        {
+            Font = new Font("Segoe UI", 10),
+            Width = 300,
+            Location = new Point(420, 168)
+        };
+
+        var vpnTypeLabel = new Label
+        {
+            Text = "VPN type",
+            AutoSize = true,
+            Font = new Font("Segoe UI", 10),
+            ForeColor = Color.White,
+            Location = new Point(420, 204)
+        };
+        _vpnTypeBox = new ComboBox
+        {
+            DropDownStyle = ComboBoxStyle.DropDownList,
+            Font = new Font("Segoe UI", 10),
+            Width = 220,
+            Location = new Point(420, 228)
+        };
+        _vpnTypeBox.Items.AddRange(new object[] { "Automatic", "PPTP", "L2TP/IPsec", "SSTP", "IKEv2", "WireGuard" });
+        _vpnTypeBox.SelectedIndex = 0;
+
+        var signInLabel = new Label
+        {
+            Text = "Type of sign-in info",
+            AutoSize = true,
+            Font = new Font("Segoe UI", 10),
+            ForeColor = Color.White,
+            Location = new Point(420, 264)
+        };
+        _signInBox = new ComboBox
+        {
+            DropDownStyle = ComboBoxStyle.DropDownList,
+            Font = new Font("Segoe UI", 10),
+            Width = 220,
+            Location = new Point(420, 288)
+        };
+        _signInBox.Items.AddRange(new object[] { "Username and password", "Certificate", "Smart card", "None" });
+        _signInBox.SelectedIndex = 0;
+
+        var usernameLabel = new Label
+        {
+            Text = "Username (optional)",
+            AutoSize = true,
+            Font = new Font("Segoe UI", 10),
+            ForeColor = Color.White,
+            Location = new Point(420, 324)
+        };
+        _usernameBox = new TextBox { Font = new Font("Segoe UI", 10), Width = 300, Location = new Point(420, 348) };
+
+        var passwordLabel = new Label
+        {
+            Text = "Password (optional)",
+            AutoSize = true,
+            Font = new Font("Segoe UI", 10),
+            ForeColor = Color.White,
+            Location = new Point(420, 384)
+        };
+        _passwordBox = new TextBox { Font = new Font("Segoe UI", 10), Width = 300, Location = new Point(420, 408), UseSystemPasswordChar = true };
+
+        // Logo picture box (loads assets/logo.png if present)
+        _logoBox = new PictureBox
+        {
+            Size = new Size(120, 120),
+            Location = new Point(620, 12),
+            SizeMode = PictureBoxSizeMode.Zoom,
+            BackColor = Color.Transparent
+        };
+        var logoPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets", "logo.png");
+        if (File.Exists(logoPath))
+        {
+            try { _logoBox.Image = Image.FromFile(logoPath); } catch { /* ignore */ }
+        }
 
         var locationLabel = new Label
         {
@@ -182,13 +292,13 @@ public partial class Form1 : Form
 
         var infoPanel = new Panel
         {
-            Size = new Size(660, 130),
-            Location = new Point(24, 300),
+            Size = new Size(760, 120),
+            Location = new Point(24, 460),
             BackColor = Color.FromArgb(18, 35, 58),
             Padding = new Padding(16)
         };
 
-        var infoLabel = new Label
+        _infoLabel = new Label
         {
             Text = "Status: Ready\nNetwork Adapter: (not selected)\nProvider: Bell / Rogers\nLocation: Calgary\nProtocol: Ethernet Tunnel",
             AutoSize = true,
@@ -197,14 +307,27 @@ public partial class Form1 : Form
             Location = new Point(16, 16)
         };
 
-        infoPanel.Controls.Add(infoLabel);
+        infoPanel.Controls.Add(_infoLabel);
 
         bodyPanel.Controls.Add(introLabel);
         bodyPanel.Controls.Add(providerLabel);
         bodyPanel.Controls.Add(_providerBox);
+        bodyPanel.Controls.Add(_logoBox);
         bodyPanel.Controls.Add(_ispBox);
         bodyPanel.Controls.Add(locationLabel);
         bodyPanel.Controls.Add(_locationBox);
+        bodyPanel.Controls.Add(connNameLabel);
+        bodyPanel.Controls.Add(_connectionNameBox);
+        bodyPanel.Controls.Add(serverLabel);
+        bodyPanel.Controls.Add(_serverBox);
+        bodyPanel.Controls.Add(vpnTypeLabel);
+        bodyPanel.Controls.Add(_vpnTypeBox);
+        bodyPanel.Controls.Add(signInLabel);
+        bodyPanel.Controls.Add(_signInBox);
+        bodyPanel.Controls.Add(usernameLabel);
+        bodyPanel.Controls.Add(_usernameBox);
+        bodyPanel.Controls.Add(passwordLabel);
+        bodyPanel.Controls.Add(_passwordBox);
         bodyPanel.Controls.Add(_statusLabel);
         bodyPanel.Controls.Add(_connectButton);
         bodyPanel.Controls.Add(_disconnectButton);

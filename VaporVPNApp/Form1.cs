@@ -14,8 +14,8 @@ public partial class Form1 : Form
     {
         InitializeComponent();
 
-        Text = "VaporVPN v1.1";
-        Size = new Size(760, 500);
+        Text = "VaporVPN v1.2";
+        Size = new Size(760, 520);
         MinimumSize = new Size(720, 480);
         StartPosition = FormStartPosition.CenterScreen;
         BackColor = Color.FromArgb(8, 16, 31);
@@ -39,7 +39,7 @@ public partial class Form1 : Form
 
         var subtitleLabel = new Label
         {
-            Text = "Private browsing, fast routing, and secure access across North America.",
+            Text = "Join our custom VaporVPN Ethernet network and connect through secure regional gateways.",
             AutoSize = true,
             Font = new Font("Segoe UI", 11),
             ForeColor = Color.FromArgb(180, 210, 255),
@@ -48,7 +48,7 @@ public partial class Form1 : Form
 
         var versionLabel = new Label
         {
-            Text = "Version 1.1",
+            Text = "Version 1.2",
             AutoSize = true,
             Font = new Font("Segoe UI", 10, FontStyle.Bold),
             ForeColor = Color.FromArgb(120, 230, 255),
@@ -68,7 +68,7 @@ public partial class Form1 : Form
 
         var introLabel = new Label
         {
-            Text = "Choose a secure gateway and connect in one click.",
+            Text = "Choose a custom gateway and connect in one click.",
             AutoSize = true,
             Font = new Font("Segoe UI", 13),
             ForeColor = Color.FromArgb(215, 232, 255),
@@ -92,7 +92,7 @@ public partial class Form1 : Form
             Height = 32,
             Location = new Point(24, 108)
         };
-        _providerBox.Items.AddRange(new object[] { "Bell / Rogers", "Telus", "Shaw", "Freedom Mobile" });
+        _providerBox.Items.AddRange(new object[] { "VaporVPN Ethernet Provider #IDNUMBER", "VaporVPN Ethernet Provider #IDNUMBER-2", "VaporVPN Ethernet Provider #IDNUMBER-3" });
         _providerBox.SelectedIndex = 0;
 
         var locationLabel = new Label
@@ -112,7 +112,7 @@ public partial class Form1 : Form
             Height = 32,
             Location = new Point(300, 108)
         };
-        _locationBox.Items.AddRange(new object[] { "Toronto", "Montreal", "Vancouver", "Calgary" });
+        _locationBox.Items.AddRange(new object[] { "Calgary", "Halifax", "Montreal", "Ottawa", "Toronto", "Vancouver", "Winnipeg" });
         _locationBox.SelectedIndex = 0;
 
         _statusLabel = new Label
@@ -156,7 +156,7 @@ public partial class Form1 : Form
 
         var infoLabel = new Label
         {
-            Text = "Status: Ready\nProvider: Bell / Rogers\nLocation: Toronto\nProtocol: WireGuard",
+            Text = "Status: Ready\nProvider: VaporVPN Ethernet Provider #IDNUMBER\nLocation: Calgary\nProtocol: Ethernet Tunnel",
             AutoSize = true,
             Font = new Font("Segoe UI", 11),
             ForeColor = Color.FromArgb(225, 238, 255),
@@ -181,8 +181,8 @@ public partial class Form1 : Form
 
     private void HandleConnect(object? sender, EventArgs e)
     {
-        var provider = _providerBox.SelectedItem?.ToString() ?? "Bell / Rogers";
-        var location = _locationBox.SelectedItem?.ToString() ?? "Toronto";
+        var provider = _providerBox.SelectedItem?.ToString() ?? "VaporVPN Ethernet Provider #IDNUMBER";
+        var location = _locationBox.SelectedItem?.ToString() ?? "Calgary";
         _statusLabel.Text = $"Connected to {location} via {provider}";
         _statusLabel.ForeColor = Color.FromArgb(102, 255, 153);
     }

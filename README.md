@@ -29,3 +29,13 @@ Welcome to VaporVPN. This is a new VPN tool but is in beta, so please don't comp
 1. Push this folder to the repository.
 2. In GitHub, enable Pages with the GitHub Actions workflow.
 3. Open the published URL from the Actions deployment.
+
+## Release workflow
+Tag a new release and push the tag to create a GitHub Release automatically via Actions. Example:
+
+```powershell
+git tag v1.3.0
+git push origin v1.3.0
+```
+
+The workflow will build the Windows exe and attach it to the Release.

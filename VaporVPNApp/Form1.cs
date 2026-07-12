@@ -238,6 +238,22 @@ public partial class Form1 : Form
         {
             try { _logoBox.Image = Image.FromFile(logoPath); } catch { /* ignore */ }
         }
+        else
+        {
+            // Try embedded resource fallback
+            var asm = typeof(Form1).Assembly;
+            var resourceNames = asm.GetManifestResourceNames();
+            var resName = resourceNames.FirstOrDefault(n => n.EndsWith("assets.logo.png") || n.EndsWith("logo.png"));
+            if (resName != null)
+            {
+                try
+                {
+                    using var s = asm.GetManifestResourceStream(resName);
+                    if (s != null) _logoBox.Image = Image.FromStream(s);
+                }
+                catch { }
+            }
+        }
 
         var locationLabel = new Label
         {

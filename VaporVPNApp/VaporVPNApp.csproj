@@ -9,6 +9,13 @@
     <Version>1.3.0</Version>
     <AssemblyVersion>1.3.0</AssemblyVersion>
     <FileVersion>1.3.0</FileVersion>
+    <!-- Optional icon: place assets/logo.ico to set the exe icon -->
+    <ApplicationIcon>assets/logo.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <!-- Include the logo as an embedded resource so the app can load it from resources if file is missing -->
+  <ItemGroup>
+    <EmbeddedResource Include="assets\logo.png" />
+  </ItemGroup>
 
 </Project>

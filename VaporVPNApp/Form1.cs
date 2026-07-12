@@ -26,7 +26,7 @@ public partial class Form1 : Form
     {
         InitializeComponent();
 
-        Text = "VaporVPN v1.3";
+        Text = "VaporVPN v1.3.1";
         Size = new Size(760, 520);
         MinimumSize = new Size(720, 480);
         StartPosition = FormStartPosition.CenterScreen;
@@ -60,11 +60,12 @@ public partial class Form1 : Form
 
         var versionLabel = new Label
         {
-            Text = "Version 1.3",
+            Text = "Version 1.3.1",
             AutoSize = true,
             Font = new Font("Segoe UI", 10, FontStyle.Bold),
             ForeColor = Color.FromArgb(120, 230, 255),
-            Location = new Point(620, 34)
+            Location = new Point(620, 34),
+            Anchor = AnchorStyles.Top | AnchorStyles.Right
         };
 
         headerPanel.Controls.Add(titleLabel);
@@ -308,8 +309,8 @@ public partial class Form1 : Form
 
         var infoPanel = new Panel
         {
-            Size = new Size(760, 120),
-            Location = new Point(24, 460),
+            Height = 120,
+            Dock = DockStyle.Bottom,
             BackColor = Color.FromArgb(18, 35, 58),
             Padding = new Padding(16)
         };
@@ -347,6 +348,7 @@ public partial class Form1 : Form
         bodyPanel.Controls.Add(_statusLabel);
         bodyPanel.Controls.Add(_connectButton);
         bodyPanel.Controls.Add(_disconnectButton);
+        // Add the info panel last so it docks to the bottom
         bodyPanel.Controls.Add(infoPanel);
 
         Controls.Add(headerPanel);

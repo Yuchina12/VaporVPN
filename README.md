@@ -4,8 +4,8 @@ Welcome to VaporVPN. This is a new VPN tool but is in beta, so please don't comp
 
 ## How to add VaporVPN?
 1. Go to the website and download the latest release.
-2. Open the VaporVPN v1.2 executable.
-3. Choose the custom VaporVPN Ethernet provider and a city, then connect.
+2. Open the VaporVPN v1.3 executable.
+3. Choose the custom VaporVPN Ethernet adapter and a city, then connect.
 
 ## How to add VaporVPN from GitHub?
 1. Open the GitHub repository.
@@ -14,12 +14,12 @@ Welcome to VaporVPN. This is a new VPN tool but is in beta, so please don't comp
 
 ## Inside App
 1. VPN Tool
-2. Provider choices including VaporVPN Ethernet Provider #IDNUMBER
+2. Network adapter choices including VaporVPN Ethernet Adapter #IDNUMBER
 3. Location selection for Calgary, Halifax, Montreal, Ottawa, Toronto, Vancouver, and Winnipeg
 
 ## Project files
 - [index.html](index.html) — landing page
-- [download/vaporvpn_v1.2.exe](download/vaporvpn_v1.2.exe) — downloadable Windows app
+- [download/vaporvpn_v1.3.exe](download/vaporvpn_v1.3.exe) — downloadable Windows app
 - [.github/workflows/pages.yml](.github/workflows/pages.yml) — GitHub Pages deployment
 - [VaporVPNApp](VaporVPNApp) — source project for the Windows app
 

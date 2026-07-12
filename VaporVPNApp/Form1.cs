@@ -14,7 +14,7 @@ public partial class Form1 : Form
     {
         InitializeComponent();
 
-        Text = "VaporVPN v1.2";
+        Text = "VaporVPN v1.3";
         Size = new Size(760, 520);
         MinimumSize = new Size(720, 480);
         StartPosition = FormStartPosition.CenterScreen;
@@ -48,7 +48,7 @@ public partial class Form1 : Form
 
         var versionLabel = new Label
         {
-            Text = "Version 1.2",
+            Text = "Version 1.3",
             AutoSize = true,
             Font = new Font("Segoe UI", 10, FontStyle.Bold),
             ForeColor = Color.FromArgb(120, 230, 255),
@@ -77,7 +77,7 @@ public partial class Form1 : Form
 
         var providerLabel = new Label
         {
-            Text = "VPN Provider",
+            Text = "Network Adapter",
             AutoSize = true,
             Font = new Font("Segoe UI", 11, FontStyle.Bold),
             ForeColor = Color.White,
@@ -92,12 +92,12 @@ public partial class Form1 : Form
             Height = 32,
             Location = new Point(24, 108)
         };
-        _providerBox.Items.AddRange(new object[] { "VaporVPN Ethernet Provider #IDNUMBER", "VaporVPN Ethernet Provider #IDNUMBER-2", "VaporVPN Ethernet Provider #IDNUMBER-3" });
+        _providerBox.Items.AddRange(new object[] { "VaporVPN Ethernet Adapter #IDNUMBER", "VaporVPN Ethernet Adapter #IDNUMBER-2", "VaporVPN Ethernet Adapter #IDNUMBER-3" });
         _providerBox.SelectedIndex = 0;
 
         var locationLabel = new Label
         {
-            Text = "VPN Location",
+            Text = "Gateway Location",
             AutoSize = true,
             Font = new Font("Segoe UI", 11, FontStyle.Bold),
             ForeColor = Color.White,
@@ -156,7 +156,7 @@ public partial class Form1 : Form
 
         var infoLabel = new Label
         {
-            Text = "Status: Ready\nProvider: VaporVPN Ethernet Provider #IDNUMBER\nLocation: Calgary\nProtocol: Ethernet Tunnel",
+            Text = "Status: Ready\nNetwork Adapter: VaporVPN Ethernet Adapter #IDNUMBER\nLocation: Calgary\nProtocol: Ethernet Tunnel",
             AutoSize = true,
             Font = new Font("Segoe UI", 11),
             ForeColor = Color.FromArgb(225, 238, 255),
@@ -181,9 +181,9 @@ public partial class Form1 : Form
 
     private void HandleConnect(object? sender, EventArgs e)
     {
-        var provider = _providerBox.SelectedItem?.ToString() ?? "VaporVPN Ethernet Provider #IDNUMBER";
+        var provider = _providerBox.SelectedItem?.ToString() ?? "VaporVPN Ethernet Adapter #IDNUMBER";
         var location = _locationBox.SelectedItem?.ToString() ?? "Calgary";
-        _statusLabel.Text = $"Connected to {location} via {provider}";
+        _statusLabel.Text = $"Connected to {location} on {provider}";
         _statusLabel.ForeColor = Color.FromArgb(102, 255, 153);
     }
 

@@ -2,6 +2,8 @@
 
 Welcome to VaporVPN. This is a new VPN tool but is in beta, so please don't complain!
 
+![VaporVPN Logo](assets/logo.png)
+
 ## How to add VaporVPN?
 1. Go to the website and download the latest release.
 2. Open the VaporVPN v1.3 executable.

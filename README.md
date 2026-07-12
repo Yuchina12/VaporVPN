@@ -2,11 +2,11 @@
 
 Welcome to VaporVPN. This is a new VPN tool but is in beta, so please don't complain!
 
-## How to add VaporVPN?
+## How to add VaporVPN in the Web?
 1. Go to the website, click "Download vaporvpn_86x.exe"
 2. Open it.
 3. You have VaporVPN. Explore Anything!
-## or
+## How to add VaporVPN in github?
 1. In the github repo, click the "download" folder
 2. Install the "vaporvpn_86x.exe" file
 

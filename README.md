@@ -14,6 +14,9 @@ Welcome to VaporVPN. This is a new VPN tool but is in beta, so please don't comp
 2. Open the download folder.
 3. Install the vaporvpn_v1.1.exe file.
 
+## Warnings!
+This VPN tool works better with v1.3.1! The v1.4 is a beta that is unstable.
+
 ## Inside App
 1. VPN Tool
 2. Network adapter choices including VaporVPN Ethernet Adapter #IDNUMBER
